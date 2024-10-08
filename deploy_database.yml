@@ -1,0 +1,32 @@
+name: CI/CD for Azure MySQL
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install MySQL Connector
+        run: |
+          python -m pip install mysql-connector-python
+
+      - name: Run SQL script
+        env:
+          DB_HOST: ${{ secrets.127.0.0.1 }}
+          DB_USERNAME: ${{ secrets.root }}
+          DB_PASSWORD: ${{ secrets.Secret55 }}
+          DB_NAME: ${{ secrets.Kriyaansh }}
+        run: |
+          python execute_sql.py
